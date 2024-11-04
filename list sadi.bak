@@ -1,0 +1,21 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname |list sadi|) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "image.rkt" "teachpack" "2htdp")) #f)))
+(list 1 2 3)
+(define a (list 1 2 3 4 ))
+a
+(first a)
+(car a)
+(rest a)
+(cdr a)
+(append a (list 10))
+(cons 20 a)
+(define l1
+  (list 15 4 9 8))
+(define (birarttir l1)
+  (if (empty? l1)
+      l1
+      (cons (+ 1 (first l1))
+            (birarttir (rest l1))
+                       )))
+(birarttir a)

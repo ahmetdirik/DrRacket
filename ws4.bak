@@ -1,0 +1,103 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname ws4) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "image.rkt" "teachpack" "2htdp")) #f)))
+;Problem 1: Welcome Message
+;• Purpose: Write a function that prints a welcoming message to the user
+;according to their name.
+;• Contract:
+; printWelcome: name(string) -> string
+;• Examples:
+; (printWelcome "Bilgi") should return "Welcome Bilgi"
+; (printWelcome "Alan") should return "Welcome Alan"
+;• Task: Implement the function printWelcome in Racket, and write at least
+;two test cases using check-expect.
+
+(define (hosgeldiniz name)
+  (if
+   (string? name)
+   (string-append "Hos Geldiniz Sayin " name)
+   (error "name must be a string"))
+  
+  
+  )
+(check-expect (hosgeldiniz "Alptug") "Hos Geldiniz Sayin Alptug")
+(check-error (hosgeldiniz 3))
+;Problem 2: Area of a Circle
+;• Purpose: Write a function that calculates the area of a circle, assuming
+;• Contract:
+; calcCircleArea: r(number) -> number
+;• Examples:
+; (calcCircleArea 5) should return 75
+; (calcCircleArea 3) should return 27
+;• Task: Implement the function calcCircleArea in Racket, and write at
+;least two test cases using check-expect.
+(define (calcareacircle r)
+  (if (> r 0)
+      (* r r 3)
+      (error "r should be a possitive number")))
+(check-expect (calcareacircle 2) 12)
+(check-error (calcareacircle -5))
+
+;Problem 3: Area of a Ring
+;• Purpose: Write a function that calculates the area of a ring (area between
+;two concentric circles).
+;• Contract:
+; calcRingArea: outerR(number) innerR(number) -> number
+;• Examples:
+; (calcRingArea 5 3) should return 48
+; (calcRingArea 4 2) should return 36
+; (check-error (calcRingArea 2 4)) should raise an error
+;• Task: Implement the function calcRingArea in Racket, and write at least
+;two test cases using check-expect. Include a case where the inner radius
+;is larger than the outer radius to check for errors.
+
+(define (calcarearing r1 r2)
+  (if (and (> r1 0) (> r2 0))
+           (if (> r1 r2)
+           (- (* r1 r1 3) (* r2 r2 3))
+           (- (* r2 r2 3) (* r1 r1 3)))
+      (error "radiants must be bigger than 0")
+           ))
+
+(check-expect (calcarearing 4 5) 27)
+(check-error (calcarearing -3 -5))
+
+;Problem 4: Distance Between Two Points
+;• Purpose: Write a function that calculates the distance between two 2D
+;points.
+;• Contract:
+; calcDist: x1(number) y1(number) x2(number) y2(number) -> number
+;• Examples:
+; (calcDist 0 0 3 4) should return 5
+; (calcDist 3 4 0 0) should return 5
+;• Task: Implement the function calcDist in Racket, and write at least two
+;test cases using check-expect.
+
+
+(define (distance p1x p1y p2x p2y)
+  (if (and (number? p1x) (number? p1y)
+           (number? p2x) (number? p2y))
+      (sqrt (+ (sqr (- p1x p2x))
+               (sqr (- p1y p2y))))
+      (error "Coordinates must be numbers")))
+;(distance 6 7 10 10)
+(check-expect (distance 6 7 10 10)5)
+(check-error (distance a b 8 9))
+
+;Problem 5: Point Inside Circle Check
+;• Purpose: Write a function that checks whether a given point is inside a
+;given circle.
+;• Contract:
+
+; checkCircleInside: rx(number) ry(number) r(number) x(number) y(number)
+
+; (checkCircleInside 0 0 7 2 2) should return #true
+; (checkCircleInside 0 0 1 2 2) should return #false
+
+(define (checkCircleInside rx ry r x y)
+  (if (<= (distance rx ry x y) r)
+      #true
+      #false))
+(check-expect (checkCircleInside 0 0 7 2 2)#true)
+(check-expect (checkCircleInside 0 0 1 2 2)#false)      
+  
